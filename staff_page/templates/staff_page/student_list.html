@@ -1,0 +1,38 @@
+{% extends 'staff_page/_staff_page_base.html' %}
+
+{% block content %}
+<h1>生徒リスト</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>生徒ID</th>
+            <th>生徒名</th>
+            <th>ステータス</th>
+            <th>アラート</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+        <tr>
+            <th>
+                {{ student.id }}
+            </th>
+            <th>
+                {{ student.name }}
+            </th>
+            <th>
+                {{ student.status }}
+            </th>
+            <th>
+                {{ student.alert }}
+            </th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'staff_page:index' %}">戻る</a>
+
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'staff_page/_staff_page_base.html' %}
+
+{% block content %}
+<h1>図書リスト</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>図書ID</th>
+            <th>図書タイトル</th>
+            <th>貸し出し状況</th>
+            <th>貸し出し中の生徒</th>
+            <th>貸し出し期限</th>
+            <th>延滞</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+        <tr>
+            <th>{{ book.id }}</th>
+            <th>{{ book.title }}</th>
+            <th>{{ book.rent_status }}</th>
+            <th>{{ book.rent_student }}</th>
+            <th>{{ book.rent_deadline }}</th>
+            <th>{{ book.is_deadline_over }}</th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'staff_page:index' %}">戻る</a>
+
+
+{% endblock %}

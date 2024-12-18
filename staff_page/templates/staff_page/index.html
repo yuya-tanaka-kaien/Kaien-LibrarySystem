@@ -1,0 +1,33 @@
+{% extends 'staff_page/_staff_page_base.html' %}
+
+{% block content %}
+<h3>図書館システム v1.0</h3>
+<div class="mt-3 mb-3">
+    <div class="d-grid gap-2 d-md-block">
+        <a class="btn btn-primary" href="{% url 'staff_page:rent_book' %}">貸し出し</a>
+        <a class="btn btn-primary" href="{% url 'staff_page:return_book' %}">返却</a>
+        <a class="btn btn-primary" href="{% url 'staff_page:student_list' %}">生徒一覧</a>
+        <a class="btn btn-primary" href="{% url 'staff_page:book_list' %}">図書一覧</a>
+    </div>
+</div>
+
+<div class="mb-3">
+    <h3>延滞中の生徒</h3>
+    <ul class="list-group">
+        <li class="list-group-item">生徒A</li>
+        <li class="list-group-item">生徒B</li>
+        <li class="list-group-item">生徒D</li>
+    </ul>
+</div>
+
+<div class="mb-3">
+    <h3>お知らせ</h3>
+    <ul class="list-group">
+        <li class="list-group-item">年末年始の図書館はお休みです</li>
+        <li class="list-group-item">延滞中の生徒について</li>
+        <li class="list-group-item">こまめな清掃にご協力ください</li>
+    </ul>
+</div>
+
+
+{% endblock %}

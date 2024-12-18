@@ -1,0 +1,41 @@
+{% extends 'staff_page/_staff_page_base.html' %}
+
+{% block content %}
+<h1>貸出</h1>
+
+{% if info %}
+    <div class="alert alert-primary" role="alert">
+        {{ info }}
+    </div>
+{% endif %}
+
+{% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+{% endif %}
+
+<form class="mb-3" action="#" method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <!--
+            <label for="student_id" class="form-label">生徒ID</label>
+            <input type="text" class="form-control" name="student_id" required>
+        -->
+        <label for="{{ form.student_id.id_for_label }}">生徒ID: </label>
+        {{ form.student_id }}
+    </div>
+    <div class="mb-3">
+        <!--
+            <label for="book_id" class="form-label">図書ID</label>
+            <input type="text" class="form-control" name="book_id" required>
+        -->
+        <label for="{{ form.book_id.id_for_label }}">図書ID</label>
+        {{ form.book_id }}
+    </div>
+    <input class="btn btn-primary" type="submit" value="貸出する">
+</form>
+
+<a href="{% url 'staff_page:index' %}">戻る</a>
+
+{% endblock %}
