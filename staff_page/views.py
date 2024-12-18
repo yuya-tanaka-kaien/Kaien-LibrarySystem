@@ -3,27 +3,42 @@ from django.urls import reverse
 from .models import Book, Student, BookRentStatus
 from .forms import RentBookForm, ReturnBookForm
 from django.utils import timezone as tz
+from django.contrib import auth
 
-is_login = True
+# 何かしらのユーザーがログインしているか？
+def is_login(request):
+    if request.user == None:
+        return False
+    return request.user.is_authenticated
 
 # ログイン画面
 def login(request):
-    if request.method == "POST":
-        global is_login
-        is_login = True
+    if is_login(request) == True:
         return redirect(reverse("staff_page:index"))
-    return render(request, "staff_page/login.html", {})
+    
+    error = ""
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = auth.authenticate(request, username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+            return redirect(reverse("staff_page:index"))
+        else:
+            error = "ユーザー名、またはパスワードが間違っています"
+    return render(request, "staff_page/login.html", {"error": error})
 
 # ログアウト処理
 def logout(request):
-    global is_login
-    is_login = False
+#    global is_login
+#    is_login = False
+    auth.logout(request)
     return redirect(reverse("staff_page:login"))
 
 # 図書館システムのトップ画面
 def index(request):
     # ログインしていない場合はログイン画面へリダイレクトする
-    if is_login == False:
+    if is_login(request) == False:
         return redirect(reverse("staff_page:login"))
     
     # 延滞中の生徒の一覧を取得
@@ -38,7 +53,7 @@ def index(request):
 # 図書館システムの図書貸出画面
 def rent_book(request):
     # ログインしていない場合はログイン画面へリダイレクトする
-    if is_login == False:
+    if is_login(request) == False:
         return redirect(reverse("staff_page:login"))
     
     status = {"info": "", "error": ""}
@@ -95,7 +110,7 @@ def _do_rent_book(target_book_id: int, target_student_id: int, deadline_days: in
 
 def return_book(request):
     # ログインしていない場合はログイン画面へリダイレクトする
-    if is_login == False:
+    if is_login(request) == False:
         return redirect(reverse("staff_page:login"))
     
     form = ReturnBookForm()
@@ -140,7 +155,7 @@ def _do_return_book(target_book_id: int):
 
 def book_list(request):
     # ログインしていない場合はログイン画面へリダイレクトする
-    if is_login == False:
+    if is_login(request) == False:
         return redirect(reverse("staff_page:login"))
     
     books = []
@@ -162,7 +177,7 @@ def book_list(request):
 
 def student_list(request):
     # ログインしていない場合はログイン画面へリダイレクトする
-    if is_login == False:
+    if is_login(request) == False:
         return redirect(reverse("staff_page:login"))
     
     students = []
