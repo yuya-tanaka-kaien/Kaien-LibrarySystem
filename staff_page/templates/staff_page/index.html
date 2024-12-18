@@ -14,9 +14,13 @@
 <div class="mb-3">
     <h3>延滞中の生徒</h3>
     <ul class="list-group">
-        <li class="list-group-item">生徒A</li>
-        <li class="list-group-item">生徒B</li>
-        <li class="list-group-item">生徒D</li>
+        {% if expired_students %}
+            {% for student in expired_students %}
+            <li class="list-group-item">{{ student.student_name }}</li>
+            {% endfor %}
+        {% else %}
+            <li class="list-group-item">延滞中の生徒はいません</li>
+        {% endif %}
     </ul>
 </div>
 

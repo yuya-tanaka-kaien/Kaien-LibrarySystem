@@ -26,7 +26,14 @@ def index(request):
     if is_login == False:
         return redirect(reverse("staff_page:login"))
     
-    return render(request, "staff_page/index.html", {})
+    # 延滞中の生徒の一覧を取得
+    deadline_expired_students = []
+    rented_book_rent_status = BookRentStatus.objects.filter(is_book_returned=False)
+    for status in rented_book_rent_status:
+        if status.is_deadline_expired():
+            deadline_expired_students.append(status.book_rent_student)
+    
+    return render(request, "staff_page/index.html", {"expired_students": deadline_expired_students})
 
 # 図書館システムの図書貸出画面
 def rent_book(request):
