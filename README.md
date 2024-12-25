@@ -88,4 +88,17 @@
 
 ### 図書返却の流れ
 
+1. 「localhost:8000」からシステムを開き、スタッフとしてログインします。
+![image](https://github.com/user-attachments/assets/a65a35a9-39a7-4231-b28a-1103faca5b78)
+
+2. スタッフとしてログインした後、「返却」ボタンをクリックします。
+![image](https://github.com/user-attachments/assets/f76f40ea-dafc-4e88-a0e7-9d0ef49c288a)
+
+3. 図書のIDを入力し、「返却する」をクリックします。
+![image](https://github.com/user-attachments/assets/ad921946-c6f8-433b-b28f-fc866924cd68)
+
+4. 返却が完了しました。
+![image](https://github.com/user-attachments/assets/764b5e62-c781-4164-aeee-82eef917ee62)
+
+
 ### 延滞中生徒の確認
