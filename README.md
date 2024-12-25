@@ -21,9 +21,10 @@
 
 推奨ブラウザはGoogle Chromeです。
 
-## ◆ 使用言語
+## ◆ 使用技術
 - Python(Django 4)
 - HTML/CSS、BootStrap
+- SQLite3
 
 ## ◆ システム構成
 
@@ -55,9 +56,24 @@
 
 ## ◆ デモ
 
-### 図書や生徒を登録する流れ
+### 図書を登録する流れ
+
+1. 「localhost:8000/admin」からDjangoAdminを開き、管理者ユーザーとしてログインします。
+![image](https://github.com/user-attachments/assets/26bee8da-7d9c-4e55-a878-85589a0753e7)
+
+2. 「Books」を選択します。
+![image](https://github.com/user-attachments/assets/b1914c36-d566-417b-af56-d52e00295f0f)
+
+3. 「Bookを追加」をクリックします。
+![image](https://github.com/user-attachments/assets/05e203df-7c83-4af5-9624-0fdd8bc5e4fc)
+
+4. フォームに情報を入力し、保存ボタンをクリックします。これで図書が登録できます。
+![image](https://github.com/user-attachments/assets/9bd40a09-1aeb-4ae9-baa5-68e469f154e0)
+
 
 ### 図書貸し出しの流れ
+
+
 
 ### 図書返却の流れ
 
