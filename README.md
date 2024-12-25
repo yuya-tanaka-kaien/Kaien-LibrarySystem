@@ -102,3 +102,9 @@
 
 
 ### 延滞中生徒の確認
+
+延滞中の生徒はトップ画面から一覧として表示されます。
+![image](https://github.com/user-attachments/assets/affdbfdd-dc47-4e4b-86a8-96c8beec0f5b)
+
+生徒一覧からも延滞中の生徒を閲覧できます。
+![image](https://github.com/user-attachments/assets/a28ceacd-0510-400c-9043-bc728831a2e0)
