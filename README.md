@@ -73,6 +73,17 @@
 
 ### 図書貸し出しの流れ
 
+1. 「localhost:8000」からシステムを開き、スタッフとしてログインします。
+![image](https://github.com/user-attachments/assets/a65a35a9-39a7-4231-b28a-1103faca5b78)
+
+2. 「貸し出し」ボタンをクリックします。
+![image](https://github.com/user-attachments/assets/f76f40ea-dafc-4e88-a0e7-9d0ef49c288a)
+
+3. 生徒のIDと図書のIDを入力し、「貸出する」ボタンをクリックします。
+![image](https://github.com/user-attachments/assets/dd072388-c8c7-4516-8907-dbef974ca5a0)
+
+4. 貸出が完了しました。
+![image](https://github.com/user-attachments/assets/6bad25b7-780b-45ea-afac-918435e7b7df)
 
 
 ### 図書返却の流れ
