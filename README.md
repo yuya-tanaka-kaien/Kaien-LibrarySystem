@@ -30,6 +30,8 @@
 
 ## ◆ システム構成
 
+![システム構成図](https://github.com/user-attachments/assets/882c8c11-6045-4cf1-b105-44424c5b16ac)
+
 ## ◆ 設計図
 
 ### ER図
