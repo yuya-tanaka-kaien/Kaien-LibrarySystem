@@ -230,7 +230,7 @@ def student_detail(request, student_id):
     rented_book = student.get_rented_book()
     status = {
         "student_id": student_id,
-        "student_joined_date": student_joined_date,
+        "student_joined_date": student_joined_date or "",
         "student_name": student_name,
         "deadline_status": "延滞中" if is_deadline_expired else "",
         "book_return_deadline": return_deadline if is_rented else "",
