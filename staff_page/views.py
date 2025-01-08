@@ -204,10 +204,6 @@ def book_detail(request, book_id):
         return redirect(reverse("staff_page:login"))
     
     book = get_object_or_404(Book, pk=book_id)
-    
-    # TODO: 無駄な処理。後で消す
-    book_id = book.book_id
-
     book_register_date = book.book_register_date
     can_rent = book.can_rent()
     rented_student = book.get_rented_student()
