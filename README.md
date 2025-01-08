@@ -30,7 +30,7 @@
 
 ## ◆ システム構成
 
-![システム構成図](https://github.com/user-attachments/assets/7e875077-b33d-4b29-9356-3159c3ba5726)
+![システム構成図_v3](https://github.com/user-attachments/assets/82740a5f-698b-40b7-a7bc-5602074b4449)
 
 ## ◆ 設計図
 
