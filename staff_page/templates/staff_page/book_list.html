@@ -18,7 +18,7 @@
         {% for book in books %}
         <tr>
             <th>{{ book.id }}</th>
-            <th>{{ book.title }}</th>
+            <th><a href="{% url 'staff_page:book_detail' book.id %}">{{ book.title }}</a></th>
             <th>{{ book.rent_status }}</th>
             <th>{{ book.rent_student }}</th>
             <th>{{ book.rent_deadline }}</th>

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from .models import Book, Student, BookRentStatus
 from .forms import RentBookForm, ReturnBookForm
@@ -197,3 +197,22 @@ def student_list(request):
     }
 
     return render(request, "staff_page/student_list.html", status)
+
+def book_detail(request, book_id):
+    # ログインしていない場合はログイン画面へリダイレクトする
+    if is_login(request) == False:
+        return redirect(reverse("staff_page:login"))
+    
+    book = get_object_or_404(Book, pk=book_id)
+    book_id = book.book_id
+    book_register_date = book.book_register_date
+    can_rent = book.can_rent()
+    rented_student = book.get_rented_student()
+    status = {
+        "book_id": book.book_id,
+        "book_title": book.book_title,
+        "book_status": "貸し出し可能" if can_rent else "貸し出し中",
+        "book_register_date": book_register_date,
+        "rent_student": rented_student if rented_student else "なし",
+    }
+    return render(request, "staff_page/book_detail.html", status)

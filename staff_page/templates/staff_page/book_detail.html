@@ -1,0 +1,14 @@
+{% extends 'staff_page/_staff_page_base.html' %}
+
+{% block content %}
+<h1>{{ book_title }}</h1>
+
+<p>ID: {{ book_id }}</p>
+<p>登録日: {{ book_register_date }}</p>
+<p>貸し出し状況: {{ book_status }}</p>
+<p>貸し出し中の生徒: {{ rent_student }}</p>
+
+<a href="{% url 'staff_page:book_list' %}">図書リストに戻る</a>
+
+
+{% endblock %}

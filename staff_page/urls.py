@@ -9,5 +9,6 @@ urlpatterns = [
     path("rent/", views.rent_book, name="rent_book"),
     path("return/", views.return_book, name="return_book"),
     path("books/", views.book_list, name="book_list"),
+    path("books/<int:book_id>/", views.book_detail, name="book_detail"),
     path("students/", views.student_list, name="student_list"),
 ]
