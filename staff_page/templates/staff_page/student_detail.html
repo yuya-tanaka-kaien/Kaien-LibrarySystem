@@ -9,7 +9,11 @@
 <p>貸し出し状況: {{ deadline_status }}</p>
 <p>貸し出し期限: {{ book_return_deadline }}</p>
 
-<a href="{% url 'staff_page:student_list' %}">生徒リストに戻る</a>
-
+<p>
+    <a href="{% url 'staff_page:student_list' %}">生徒リストに戻る</a>
+</p>
+<p>
+    <a href="{% url 'staff_page:index' %}">トップに戻る</a>
+</p>
 
 {% endblock %}

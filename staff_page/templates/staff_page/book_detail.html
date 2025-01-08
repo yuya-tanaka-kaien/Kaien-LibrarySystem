@@ -8,7 +8,11 @@
 <p>貸し出し状況: {{ book_status }}</p>
 <p>貸し出し中の生徒: {{ rent_student }}</p>
 
-<a href="{% url 'staff_page:book_list' %}">図書リストに戻る</a>
-
+<p>
+    <a href="{% url 'staff_page:book_list' %}">図書リストに戻る</a>
+</p>
+<p>
+    <a href="{% url 'staff_page:index' %}">トップに戻る</a>
+</p>
 
 {% endblock %}
