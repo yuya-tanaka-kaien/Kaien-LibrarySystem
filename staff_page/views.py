@@ -204,7 +204,10 @@ def book_detail(request, book_id):
         return redirect(reverse("staff_page:login"))
     
     book = get_object_or_404(Book, pk=book_id)
+    
+    # TODO: 無駄な処理。後で消す
     book_id = book.book_id
+
     book_register_date = book.book_register_date
     can_rent = book.can_rent()
     rented_student = book.get_rented_student()
@@ -216,3 +219,25 @@ def book_detail(request, book_id):
         "rent_student": rented_student if rented_student else "なし",
     }
     return render(request, "staff_page/book_detail.html", status)
+
+def student_detail(request, student_id):
+    # ログインしていない場合はログイン画面へリダイレクトする
+    if is_login(request) == False:
+        return redirect(reverse("staff_page:login"))
+    
+    student = get_object_or_404(Student, pk=student_id)
+    student_name = student.student_name
+    student_joined_date = student.student_joined_date
+    is_deadline_expired = student.is_deadline_expired()
+    return_deadline = student.get_return_deadline()
+    is_rented = student.is_rented_book()
+    rented_book = student.get_rented_book()
+    status = {
+        "student_id": student_id,
+        "student_joined_date": student_joined_date,
+        "student_name": student_name,
+        "deadline_status": "延滞中" if is_deadline_expired else "",
+        "book_return_deadline": return_deadline if is_rented else "",
+        "rented_book": rented_book if is_rented else "",
+    }
+    return render(request, "staff_page/student_detail.html", status)

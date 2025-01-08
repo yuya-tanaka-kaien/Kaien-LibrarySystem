@@ -19,7 +19,9 @@
                 {{ student.id }}
             </th>
             <th>
-                {{ student.name }}
+                <a href="{% url 'staff_page:student_detail' student.id %}">
+                    {{ student.name }}
+                </a>
             </th>
             <th>
                 {{ student.status }}
