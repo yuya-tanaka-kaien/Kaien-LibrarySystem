@@ -16,7 +16,11 @@
     <ul class="list-group">
         {% if expired_students %}
             {% for student in expired_students %}
-            <li class="list-group-item">{{ student.student_name }}</li>
+            <li class="list-group-item">
+                <a href="{% url 'staff_page:student_detail' student.student_id %}">
+                    {{ student.student_name }}
+                </a>
+            </li>
             {% endfor %}
         {% else %}
             <li class="list-group-item">延滞中の生徒はいません</li>
