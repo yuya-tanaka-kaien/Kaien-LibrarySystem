@@ -83,6 +83,7 @@ def rent_book(request):
 
     return render(request, "staff_page/rent.html", status)
 
+# IDから図書を取得する
 def _get_book(book_id: int):
     try:
         book = Book.objects.get(pk=book_id)
@@ -90,6 +91,7 @@ def _get_book(book_id: int):
     except Book.DoesNotExist:
         return None
 
+# IDから生徒を取得する
 def _get_student(student_id: int):
     try:
         student = Student.objects.get(pk=student_id)
