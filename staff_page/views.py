@@ -102,10 +102,10 @@ def _get_student(student_id: int):
 # エラー時はエラーメッセージを返す。エラーがない場合は空文字を返す。
 def _do_rent_book(target_book: Book, target_student: Student, deadline_days: int):
     if target_student == None:
-        return "ID{}の生徒は存在しません".format(target_student_id)
+        return "そのIDの生徒は存在しません"
     
     if target_book == None:
-        return "ID{}の本は存在しません".format(target_book_id)
+        return "そのIDの図書は存在しません"
 
     if target_book.can_rent() == False:
         return "図書「{}」は貸し出し中です".format(target_book.book_title)
@@ -138,11 +138,13 @@ def return_book(request):
             status["error"] = form.non_field_errors()
         else:
             target_book_id = form.cleaned_data["book_id"]
+
+            target_book = _get_book(target_book_id)
             
-            error_msg = _do_return_book(target_book_id)
+            error_msg = _do_return_book(target_book)
 
             if error_msg == "":
-                status["info"] = "図書の返却が完了しました"
+                status["info"] = "図書「{}」の返却が完了しました".format(target_book.book_title)
                 form = ReturnBookForm()
             else:
                 status["error"] = error_msg
@@ -151,16 +153,14 @@ def return_book(request):
     
     return render(request, "staff_page/return.html", status)
 
-def _do_return_book(target_book_id: int):
-    try:
-        target_book = Book.objects.get(pk=target_book_id)
-    except Book.DoesNotExist:
-        return "ID{}の本は存在しません".format(target_book_id)
+def _do_return_book(target_book: Book):
+    if target_book == None:
+        return "そのIDの図書は存在しません"
     
     try:
         book_rent_status = BookRentStatus.objects.get(target_book=target_book, is_book_returned=False)
     except BookRentStatus.DoesNotExist:
-        return "その本は貸し出されていません"
+        return "図書「{}」は貸し出されていません".format(target_book.book_title)
     
     book_rent_status.is_book_returned = True
     book_rent_status.book_returned_date = tz.now().date()
