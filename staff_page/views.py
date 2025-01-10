@@ -67,29 +67,42 @@ def rent_book(request):
         else:
             student_id = form.cleaned_data["student_id"]
             book_id = form.cleaned_data["book_id"]
+
+            target_student = _get_student(student_id)
+            target_book = _get_book(book_id)
             
-            error_msg = _do_rent_book(book_id, student_id, 7)
+            error_msg = _do_rent_book(target_book, target_student, 7)
 
             if error_msg != "":
                 status["error"] = error_msg
             else:
                 form = RentBookForm()
-                status["info"] = "図書の貸し出しが完了しました"
+                status["info"] = "図書「{}」の貸し出しが完了しました (貸出した生徒：{})".format(target_book.book_title, target_student.student_name)
     
     status["form"] = form
 
     return render(request, "staff_page/rent.html", status)
 
-# エラー時はエラーメッセージを返す。エラーがない場合は空文字を返す。
-def _do_rent_book(target_book_id: int, target_student_id: int, deadline_days: int):
+def _get_book(book_id: int):
     try:
-        target_student = Student.objects.get(pk=target_student_id)
+        book = Book.objects.get(pk=book_id)
+        return book
+    except Book.DoesNotExist:
+        return None
+
+def _get_student(student_id: int):
+    try:
+        student = Student.objects.get(pk=student_id)
+        return student
     except Student.DoesNotExist:
+        return None
+
+# エラー時はエラーメッセージを返す。エラーがない場合は空文字を返す。
+def _do_rent_book(target_book: Book, target_student: Student, deadline_days: int):
+    if target_student == None:
         return "ID{}の生徒は存在しません".format(target_student_id)
     
-    try:
-        target_book = Book.objects.get(pk=target_book_id)
-    except Book.DoesNotExist:
+    if target_book == None:
         return "ID{}の本は存在しません".format(target_book_id)
 
     if target_book.can_rent() == False:
