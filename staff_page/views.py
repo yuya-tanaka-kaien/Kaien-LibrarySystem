@@ -106,9 +106,9 @@ def _do_rent_book(target_book: Book, target_student: Student, deadline_days: int
         return "ID{}の本は存在しません".format(target_book_id)
 
     if target_book.can_rent() == False:
-        return "その図書は貸し出し中です"
+        return "図書「{}」は貸し出し中です".format(target_book.book_title)
     if target_student.is_rented_book():
-        return "その生徒はすでに本を借りています"
+        return "生徒「{}」はすでに本を借りています".format(target_student.student_name)
 
     book_rent_status = BookRentStatus()
 
