@@ -190,28 +190,51 @@ def book_list(request):
 
     return render(request, "staff_page/book_list.html", status)
 
+# 生徒リストのビュー
 def student_list(request):
     # ログインしていない場合はログイン画面へリダイレクトする
     if is_login(request) == False:
         return redirect(reverse("staff_page:login"))
     
+    # 生徒リスト初期化
     students = []
 
+    # 全生徒を取得して生徒リストを構成する
     for student in Student.objects.all():
+        # メッセージ初期化
+        rented_book_title = ""
+        rented_book_url = ""
+        book_rent_status = ""
+        book_rent_alert = ""
+        
+        # 貸し出し中の図書を取得
         rented_book = student.get_rented_book()
-        return_deadline = student.get_return_deadline()
-        is_deadline_expired = student.is_deadline_expired()
+        if rented_book:
+            # 図書タイトルの取得
+            rented_book_title = rented_book.book_title
+
+            # 図書IDの取得
+            rented_book_url = reverse("staff_page:book_detail", args=[rented_book.book_id])
+
+            # 貸し出し期限のメッセージ
+            return_deadline = student.get_return_deadline()
+            book_rent_status = "貸出中({}まで)".format(return_deadline)
+        
+        # 延滞アラート
+        if student.is_deadline_expired():
+            book_rent_alert = "延滞中"
+
+        # 生徒一覧に生徒データを追加
         students.append({
             "id": student.student_id,
             "name": student.student_name,
-            "status": "貸し出し中({}まで)".format(return_deadline) if rented_book else "",
-            "alert": "延滞中" if is_deadline_expired else ""
+            "status": book_rent_status,
+            "alert": book_rent_alert,
+            "rented_book_title": rented_book_title,
+            "rented_book_url": rented_book_url,
         })
-    status = {
-        "students": students
-    }
-
-    return render(request, "staff_page/student_list.html", status)
+    
+    return render(request, "staff_page/student_list.html", {"students": students})
 
 def book_detail(request, book_id):
     # ログインしていない場合はログイン画面へリダイレクトする

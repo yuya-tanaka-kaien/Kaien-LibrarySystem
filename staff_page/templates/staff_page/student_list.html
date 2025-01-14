@@ -8,6 +8,7 @@
         <tr>
             <th>生徒ID</th>
             <th>生徒名</th>
+            <th>貸出中の図書</th>
             <th>ステータス</th>
             <th>アラート</th>
         </tr>
@@ -22,6 +23,13 @@
                 <a href="{% url 'staff_page:student_detail' student.id %}">
                     {{ student.name }}
                 </a>
+            </th>
+            <th>
+                {% if rented_book_title != "" %}
+                <a href="{{ student.rented_book_url }}">
+                    {{ student.rented_book_title }}
+                </a>
+                {% endif %}
             </th>
             <th>
                 {{ student.status }}
