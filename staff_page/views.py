@@ -48,7 +48,7 @@ def index(request):
         if status.is_deadline_expired():
             deadline_expired_students.append(status.book_rent_student)
     
-    return render(request, "staff_page/index.html", {"expired_students": deadline_expired_students})
+    return render(request, "staff_page/index.html", {"current_datetime": _get_current_datetime(), "expired_students": deadline_expired_students})
 
 # 図書館システムの図書貸出画面
 def rent_book(request):
@@ -82,6 +82,9 @@ def rent_book(request):
     status["form"] = form
 
     return render(request, "staff_page/rent.html", status)
+
+def _get_current_datetime():
+    return tz.datetime.now()
 
 # IDから図書を取得する
 def _get_book(book_id: int):
@@ -186,7 +189,7 @@ def book_list(request):
             "rent_deadline": returen_deadline if returen_deadline else "",
             "is_deadline_over": "延滞中" if is_deadline_expired else ""
         })
-    status = {"books": books}
+    status = {"current_datetime": _get_current_datetime(), "books": books}
 
     return render(request, "staff_page/book_list.html", status)
 
@@ -233,8 +236,9 @@ def student_list(request):
             "rented_book_title": rented_book_title,
             "rented_book_url": rented_book_url,
         })
+    status = {"current_datetime": _get_current_datetime(), "students": students}
     
-    return render(request, "staff_page/student_list.html", {"students": students})
+    return render(request, "staff_page/student_list.html", status)
 
 def book_detail(request, book_id):
     # ログインしていない場合はログイン画面へリダイレクトする
